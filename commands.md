@@ -64,9 +64,8 @@ Forgot to add time but it lasted circa 110min
 
 ffmpeg -i input/input_bbb.mp4 -i output/output_av1.mkv -lavfi "[0:v][1:v]psnr=stats_file=psnr.log,split[v1][v2];[v2][1:v]libvmaf=log_path=vmaf.json;[v1]null" -f null -
 
-
-
 PSNR y:21.849728 u:36.284207 v:37.411497 average:23.541910 min:5.320119 max:inf
+
 VMAF score: 58.305250
 
 ## Command for Youtube cat video:
@@ -75,5 +74,9 @@ time ffmpeg -i input/input_cat.mp4 -c:v libaom-av1 -crf 28 -b:v 3M -cpu-used 4 -
 
 4749.10s user 51.05s system 419% cpu 19:03.62 total      ( ( ( 4749.10s + 51.05s ) / 60 ) / 4.19 ) = 19.03.62 min.  The other time is all cpus combined I guess.
 
-ffmpeg -i input/input_cat_bbb.mp4 -i output/output_cat_av1.mkv -lavfi "[0:v][1:v]psnr=stats_file=psnr_cat.log,split[v1][v2];[v2][1:v]libvmaf=log_path=vmaf_cat.json;[v1]null" -f null -
+ffmpeg -i input/input_cat.mp4 -i output/output_cat_av1.mkv -lavfi "[0:v][1:v]psnr=stats_file=psnr_cat.log,split[v1][v2];[v2][1:v]libvmaf=log_path=vmaf_cat.json;[v1]null" -f null -
 
+
+PSNR y:27.133462 u:42.133084 v:44.437771 average:28.840180 min:11.648624 max:53.755901
+
+VMAF score: 60.845296
