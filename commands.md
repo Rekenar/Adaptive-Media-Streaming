@@ -1,3 +1,11 @@
+# Encoder options
+
++ libaom        // Reference Encoder                    // Either that or
++ SVT-AV1       // New Standard Encoder by AOMedia      // this one
++ rav1e         // Xiph Encoder for AV1 (Claims to be the fastest)
++ AMD AMF AV1   // Optimized for AMD GPU's
+
+
 # First try Settings (Big Buck Bunny 1080p 30fps)
 ffmpeg 
 -i input.mp4            
@@ -45,7 +53,13 @@ Divides the video frame into tiles for parallel encoding.
 
 ## -g <frames>
 
-The number of frames between keyframes (default ~250).
+By default, libaom's maximum keyframe interval is 9999 frames. This can lead to slow seeking, especially with content that has few or infrequent scene changes.
+
+The -g option can be used to set the maximum keyframe interval. Anything up to 10 seconds is considered reasonable for most content, so for 30 frames per second content one would use -g 300, for 60 fps content -g 600, etc.
+
+To set a fixed keyframe interval, set both -g and -keyint_min to the same value. Note that currently -keyint_min is ignored unless it's the same as -g, so the minimum keyframe interval can't be set on its own.
+
+For intra-only output, use -g 0.
 
 ## -threads <num>
 
@@ -80,3 +94,7 @@ ffmpeg -i input/input_cat.mp4 -i output/output_cat_av1.mkv -lavfi "[0:v][1:v]psn
 PSNR y:27.133462 u:42.133084 v:44.437771 average:28.840180 min:11.648624 max:53.755901
 
 VMAF score: 60.845296
+
+
+
+aom-params
